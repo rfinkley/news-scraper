@@ -38,9 +38,10 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 // mongoose.connect("mongodb://localhost/news-scraper", { useNewUrlParser: true });
 
 // Import routes and give the server access to them.
-var routes = require("./config/routes");
+var router = express.Router();
+require("./config/routes")(router);
 
-app.use(routes);
+app.use(router);
 
 // Start the server
 app.listen(PORT, function() {
