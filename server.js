@@ -38,7 +38,7 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true 
 // mongoose.connect("mongodb://localhost/news-scraper", { useNewUrlParser: true });
 
 // Import routes and give the server access to them.
-var routes = require("./controllers/news-scraper-controller.js");
+var routes = require("./config/routes");
 
 app.use(routes);
 
