@@ -3,7 +3,7 @@ var express = require("express");
 var router = express.Router();
 
 // Require all models
-var db = require("../models");
+// var db = require("../models");
 
 // Create all our routes and set up logic within those routes where required.
 router.get("/", function(req, res) {
