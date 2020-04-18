@@ -32,8 +32,23 @@
      color: #fff;
  }
 
- .nav-list li:hover {
+.nav-list a {
+    text-decoration: none;
+    color: #fff;
+    text-align: center;
+}
+
+.nav-list a:hover {
     cursor: pointer;
+}
+
+.nav-list .scrape {
+    background-color: #d33a2c;
+    border: 2px #fff solid;
+    border-radius: 10px;
+    padding: 1rem;
+    color: #fff;
+    box-shadow:  2px 4px rgba(0, 0, 0, .3);
 }
 
  .brand {
@@ -54,15 +69,6 @@
 
  .title p {
      width: 200px;
- }
-
- .nav-list li button {
-     background-color: #d33a2c;
-     border: 2px #fff solid;
-     border-radius: 10px;
-     padding: 1rem;
-     color: #fff;
-     box-shadow:  2px 4px rgba(0, 0, 0, .3);
  }
 
  /* MAIN  */
