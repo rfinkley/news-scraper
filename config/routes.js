@@ -10,7 +10,7 @@ module.exports = routes => {
         res.render("saved");
     });
     routes.get("/api/fetch", function (req, res) {
-        articles.fetch(function (paramserr, docs) {
+        articles.fetch(function (err, docs) {
             if (!docs || docs.insertedCount === 0) {
                 res.json({
                     message: "No new articles today. Check back tomorrow!"
