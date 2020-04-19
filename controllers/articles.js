@@ -9,6 +9,7 @@ module.exports = {
             articles.forEach(function(article) {
                 article.date = makeDate();
                 article.saved = false;
+                article.publishDate = Date.parse(article.publishDate);
             })
             Article.collection.insertMany(articles, {ordered: false}, function(err, docs) {
                 cb(err, docs);
@@ -21,7 +22,7 @@ module.exports = {
     get: function(query, cb) {
         Article.find(query)
         .sort({
-            _id: -1
+            publishDate: -1
         })
         .exec(function(err, doc) {
             cb(doc);
