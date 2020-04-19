@@ -9,19 +9,20 @@ const scrape = cb => {
         const $ = cheerio.load(res.data);
         let articles = [];
         $(".article--post").each(function(i, element) {
-            let title = $(this).children(".article--post__title").text().trim();
-            let author = $(this).children(".article--post__author-name").text().trim();
-            let summary = $(this).children(".article--post__teaser").text().trim();
-            let date = $(this).children("time").text().trim();
+
+            let author = $(element).children("header").text().trim();
+            let title = $(element).children(".article--post__title").text().trim();
+            let summary = $(element).children(".article--post__content").text().trim();
+            let date = $(element).children(".article--post__content").children(".article--post__teaser").children("time").text().trim();
 
             if (title && summary) {
                 let titleNeat = title.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
-                let summaryNeat = title.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
+                let summaryNeat = summary.replace(/(\r\n|\n|\r|\t|\s+)/gm, " ").trim();
 
                 let data = {
-                    title: title,
+                    title: titleNeat,
                     author: author,
-                    summary: summary,
+                    summary: summaryNeat,
                     date: date
                 };
 
