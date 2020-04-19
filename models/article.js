@@ -15,6 +15,10 @@ const articleSchema = new Schema({
         type: String,
         required: true
     },
+    publishDate: {
+        type: Date,
+        required: true
+    },
     date: String,
     saved: {
         type: Boolean,
