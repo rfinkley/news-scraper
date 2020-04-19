@@ -14,7 +14,9 @@ $(document).ready( () => {
 
     let renderArticles = articles => {
         let articleSections = [];
-        articles.forEach(article => articleSections.push(createSection(article)));
+        articles.forEach(article => {
+            articleSections.push(createSection(article))
+        });
         articleContainer.append(articleSections);
     }
 
@@ -30,16 +32,16 @@ $(document).ready( () => {
                 "</h2>",
                 "<p class='article-text'>",
                 article.summary,
-                "<span class='date'>",
-                article.date,
-                "</span></p>",
+                "</p>",
                 "</article>",
                 "<aside class='quarter'>",
                 "<ul class='aside-list'>",
-                "<li><a href='#' class='btn-save'><i class='fas fa-save'></i></a> </li></ul></aside>",
+                "<li><a href='#' data-article='",
+                article._id,
+                "' class='btn-save'><i class='fas fa-save'></i></a> </li></ul></aside>",
                 "</section>",
             ].join(""));
-            section.data("_id", article._id);
+            $.data(section,"_id", article._id);
             return section;
     }
 
@@ -53,7 +55,8 @@ $(document).ready( () => {
     }
 
     let saveArticle = function () {
-        let articleToSave = $(this).parents(".section").data();
+        let articleToSave = $(this).attr("data-article");
+        console.log(articleToSave);
         articleToSave.saved = true;
         $.ajax({
             method: "PATCH",
@@ -76,7 +79,7 @@ $(document).ready( () => {
     }
 
     let articleContainer = $(".article-container");
-    $(document).on('click', '.btn-savedArticles', saveArticle);
+    $(document).on('click', '.btn-save', saveArticle);
     $(document).on('click', '.scrape', scrapeArticles);
     clearArticles();
 
