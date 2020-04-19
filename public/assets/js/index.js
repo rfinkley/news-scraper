@@ -1,9 +1,4 @@
 $(document).ready( () => {
-    let articleContainer = $(".article-container");
-    $(document).on('click', '.btn-savedArticles', saveArticle);
-    $(document).on('click', '.scrape', scrapeArticles);
-
-    clearArticles();
     
     let clearArticles = () => {
         articleContainer.empty();
@@ -80,7 +75,10 @@ $(document).ready( () => {
             })
     }
 
-
+    let articleContainer = $(".article-container");
+    $(document).on('click', '.btn-savedArticles', saveArticle);
+    $(document).on('click', '.scrape', scrapeArticles);
+    clearArticles();
 
 })
 
