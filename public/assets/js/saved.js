@@ -1,11 +1,5 @@
 $(document).ready(() => {
   let articleContainer = $(".article-container");
-  $(document).on('click', '.deleteArticle', deleteArticle);
-  $(document).on('click', '.addNote', addNote);
-  $(document).on('click', '.saveNote', saveNote);
-  $(document).on('click', '.deleteNote', deleteNote);
-
-  clearPage();
 
   let clearPage = () => {
     articleContainer.empty();
@@ -160,5 +154,12 @@ $(document).ready(() => {
         modal.style.display = "none";
       });
   }
+
+  $(document).on('click', '.deleteArticle', deleteArticle);
+  $(document).on('click', '.addNote', addNote);
+  $(document).on('click', '.saveNote', saveNote);
+  $(document).on('click', '.deleteNote', deleteNote);
+
+  clearPage();
 
 })
