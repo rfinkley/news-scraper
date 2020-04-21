@@ -55,7 +55,7 @@ $(document).ready( () => {
     }
 
     let saveArticle = function () {
-        let articleToSave = $(this).attr("data-article");
+        let articleToSave = {"_articleId": $(this).attr("data-article")};
         console.log(articleToSave);
         articleToSave.saved = true;
         $.ajax({
