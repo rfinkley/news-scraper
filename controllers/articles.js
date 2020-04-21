@@ -29,7 +29,9 @@ module.exports = {
         });
     },
     update: function(query, cb) {
-        Article.update({_id:query._id}, {
+        console.log("Controllers query: ");
+        console.log(query);
+        Article.updateOne({_id:query._articleId}, {
             $set: query
         }, {}, cb);
     }
