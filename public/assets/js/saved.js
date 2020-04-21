@@ -1,5 +1,5 @@
 $(document).ready(() => {
-  let articleContainer = $(".article-container");
+  let articleContainer = $(".articleContainer");
 
   let clearPage = () => {
     articleContainer.empty();
@@ -15,7 +15,7 @@ $(document).ready(() => {
   let renderEmpty = () => {
     const noArticles =
       $(["<div class='no-articles'>",
-        "<h1>Oops! It looks like there are no new articles!</h1>",
+        "<h1>Oops! It looks like there are no saved articles!</h1>",
         "<h3>Would you like to browse available articles?</h3>",
         "<h4><a href='/'>Browse Articles</a></h4>",
         "</div>"
@@ -25,7 +25,9 @@ $(document).ready(() => {
 
   let renderArticles = articles => {
     let articleSections = [];
-    articles.forEach(article => articleSections.push(createSection(article)));
+    articles.forEach(article => {
+      articleSections.push(createSection(article))
+    });
     articleContainer.append(articleSections);
   }
 
@@ -41,25 +43,25 @@ $(document).ready(() => {
         "</h2>",
         "<p class='article-text'>",
         article.summary,
-        "<span class='date'>",
-        article.date,
-        "</span></p>",
+        "</p>",
         "</article>",
         "<aside class='quarter'>",
         "<ul class='aside-list'>",
-        "<li><a class='addNote'><i class='far fa-sticky-note'></i></a></li>",
+        "<li><a data class='addNote'><i class='far fa-sticky-note'></i></a></li>",
         "<li><a class='deleteArticle'><i class='far fa-trash-alt'></i></a></li></ul></aside>",
         "</section>",
       ].join(""));
-    section.data("_id", article._id);
+    section.data("_id", article._id);    
     return section;
   }
 
-  let deleteArticle = () => {
-    const articleDelete = $(this).parents(".panel").data();
+  let deleteArticle = function () {
+    console.log($(this));
+    
+    const articleToDelete = $(this).parents(".row").data("_id");
     $.ajax({
       method: "DELETE",
-      url: "/api/headlines/" + articleToDelete._id
+      url: "/api/articles/" + articleToDelete
     }).then(data => {
       if (data.ok) {
         clearPage();
@@ -67,22 +69,23 @@ $(document).ready(() => {
     });
   }
 
-  let addNote = () => {
-    const currentArticle = $(this).parents(".panel").data();
-
-    $.get("/api/notes/" + currentArticle._id).then(data => {
+  let addNote = function () {
+    const currentArticle = $(this).parents(".row").data("_id");
+    console.log(currentArticle);
+    $.get("/api/notes/" + currentArticle).then(data => {
+      console.log(data);
       const modalText = [
         "<h4>Notes for Article: ",
-        currentArticle._id,
+        currentArticle,
         "</h4>",
         "<hr />",
         "<ul class='list-group note-container'></ul>",
         "<textarea placeholder='New Note' rows='4' cols='60'></textarea>",
-        "<button class='btn save'>Save Note</button>"
+        "<button class='btn saveNote'>Save Note</button>"
       ].join("");
       $(".modalInput").append(modalText);
       let noteData = {
-        _id: currentArticle._id,
+        _id: currentArticle,
         notes: data || []
       }
       $("btn.save").data("article", noteData);
@@ -108,6 +111,7 @@ $(document).ready(() => {
   }
 
   let renderNotesList = data => {
+    console.log(data);
     let notesToRender = [];
     let currentNote;
     if (!data.notes.length) {
@@ -118,7 +122,7 @@ $(document).ready(() => {
         currentNote = $([
           "<li class='list-group-item note'>",
           note.noteText,
-          "<button class='btn note-delete'><i class='far fa-trash-alt'></i></button>",
+          "<button class='btn deleteNote'><i class='far fa-trash-alt'></i></button>",
           "</li>"
         ].join(""));
         currentNote.children("button").data("_id", note._id);
@@ -128,12 +132,12 @@ $(document).ready(() => {
     $(".note-container").append(notesToRender);
   }
 
-  let saveNote = () => {
+  let saveNote = function () {
     let noteData;
     const newNote = $(".modalInput textarea").val().trim();
     if (newNote) {
       noteData = {
-        _id: $(this).data("article")._id,
+        _id: $(this).parents(".row").data("_id"),
         noteText: newNote
       };
       $.post("/api/notes", noteData).then(() => {
@@ -144,8 +148,9 @@ $(document).ready(() => {
     }
   }
 
-  let deleteNote = () => {
+  let deleteNote = function () {
       const noteToDelete = $(this).data("_id");
+      console.log($(this));
       $.ajax({
         url: "/api/notes/" + noteToDelete,
         method: "DELETE"
