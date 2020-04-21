@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const noteSchema = new Schema({
     _articleId: {
         type: Schema.Types.ObjectId,
-        ref: "Headline"
+        ref: "Article"
     },
     date: String,
     noteText: String
