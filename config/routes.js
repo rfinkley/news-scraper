@@ -39,6 +39,8 @@ module.exports = routes => {
         });
     });
     routes.patch("/api/articles", function (req, res) { 
+        console.log("Routes req.body: ");
+        console.log(req.body);
         articles.update(req.body, function (err, data) {  
             res.json(data);
         });
@@ -55,7 +57,7 @@ module.exports = routes => {
     routes.delete("/api/notes/:id", function(req, res) {
         let query = {};
         query._id = req.params.id;
-        notes.delete(query, function(err, data) {
+        notes.remove(query, function(err, data) {
             res.json(data);
         });
     });
