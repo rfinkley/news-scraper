@@ -96,6 +96,11 @@
      display: flex;
  }
 
+ .btn-save {
+     font-size: 2rem;
+     color: black;
+ }
+
 
 
  .article-container {
