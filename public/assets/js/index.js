@@ -38,7 +38,7 @@ $(document).ready(() => {
         "<ul class='aside-list'>",
         "<li><a href='#' data-article='",
         article._id,
-        "' class='btn-save'><i class='fas fa-save'></i></a> </li></ul></aside>",
+        "' class='btn-save'><i class='fas fa-save'></i></a></li></ul></aside>",
         "</section>",
       ].join(""));
     $.data(section, "_id", article._id);
