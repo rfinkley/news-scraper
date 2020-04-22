@@ -51,7 +51,10 @@ $(document).ready(() => {
         "<li><a class='deleteArticle'><i class='far fa-trash-alt'></i></a></li></ul></aside>",
         "</section>",
       ].join(""));
-    section.data("_id", article._id);    
+    section.data("_id", article._id);
+    section.data("title", article.title);
+    console.log(section.data("title"));
+    
     return section;
   }
 
@@ -70,13 +73,14 @@ $(document).ready(() => {
   }
 
   let addNote = function () {
+    $(".modalInput").empty();
     const currentArticle = $(this).parents(".row").data("_id");
     console.log(currentArticle);
     $.get("/api/notes/" + currentArticle).then(data => {
       console.log(data);
       const modalText = [
         "<h4>Notes for Article: ",
-        currentArticle,
+        $(this).parents(".row").data("title"),
         "</h4>",
         "<hr />",
         "<ul class='list-group note-container'></ul>",
